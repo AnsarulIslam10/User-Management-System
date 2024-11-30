@@ -1,8 +1,39 @@
 import React from "react";
 import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const AddUser = () => {
+    const navigate = useNavigate()
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const gender = e.target.gender.value;
+    const status = e.target.status.value;
+    console.log(name, email, gender, status);
+
+    const newUser = { name, email, gender, status };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+            Swal.fire({
+                title: "Congrats!!",
+                text: "User Added Successfully",
+                icon: "success"
+              });
+              navigate('/')
+        }
+      }).catch(error=>console.log(error))
+  };
   return (
     <div className="max-w-7xl mx-auto px-2 mt-16">
       <Link
@@ -18,7 +49,7 @@ const AddUser = () => {
           <p className="text-gray-500 text-center mb-6">
             Use the below form to create a new account
           </p>
-          <form>
+          <form onSubmit={handleAddUser}>
             {/* Name Field */}
             <div className="mb-4">
               <label className="block text-gray-700 mb-1">Name</label>
@@ -47,6 +78,7 @@ const AddUser = () => {
                   <input
                     type="radio"
                     name="gender"
+                    value={'Male'}
                     className="radio radio-primary"
                   />
                   <span className="ml-2">Male</span>
@@ -55,6 +87,7 @@ const AddUser = () => {
                   <input
                     type="radio"
                     name="gender"
+                    value={"Female"}
                     className="radio radio-primary"
                     defaultChecked
                   />
@@ -70,6 +103,7 @@ const AddUser = () => {
                   <input
                     type="radio"
                     name="status"
+                    value={'Active'}
                     className="radio radio-success"
                     defaultChecked
                   />
@@ -79,6 +113,7 @@ const AddUser = () => {
                   <input
                     type="radio"
                     name="status"
+                    value={'Inactive'}
                     className="radio radio-success"
                   />
                   <span className="ml-2">Inactive</span>

@@ -8,7 +8,7 @@ const HomePage = () => {
       <div className="mt-16">
         <div>
           <Link
-            to={"/add-user"}
+            to={"/users"}
             className="btn rounded-none shadow-md text-blue-600 bg-white"
           >
             New User
