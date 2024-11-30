@@ -18,7 +18,7 @@ const HomePage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://user-management-system-server-tawny.vercel.app/users/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -64,7 +64,7 @@ const HomePage = () => {
             </thead>
             <tbody>
               {/* row 1 */}
-              {users.map((user, index) => (
+              {users?.map((user, index) => (
                 <tr key={user._id}>
                   <th>{index + 1}</th>
                   <td>{user.name}</td>

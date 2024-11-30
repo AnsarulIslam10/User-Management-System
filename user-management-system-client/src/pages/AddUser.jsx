@@ -14,7 +14,7 @@ const AddUser = () => {
     console.log(name, email, gender, status);
 
     const newUser = { name, email, gender, status };
-    fetch("http://localhost:5000/users", {
+    fetch("https://user-management-system-server-tawny.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -13,7 +13,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage></HomePage>,
-        loader: ()=> fetch('http://localhost:5000/users')
+        loader: ()=> fetch('https://user-management-system-server-tawny.vercel.app/users')
       },
       {
         path: '/users',
