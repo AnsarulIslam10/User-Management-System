@@ -18,9 +18,12 @@ const HomePage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://user-management-system-server-tawny.vercel.app/users/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://user-management-system-server-tawny.vercel.app/users/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -75,7 +78,10 @@ const HomePage = () => {
                     <button className="text-blue-600 p-3 hover:shadow-sm shadow-md hover:bg-base-200">
                       <FaPen />
                     </button>
-                    <button onClick={()=> handleDelete(user._id)} className="text-blue-600 p-3 hover:shadow-sm shadow-md hover:bg-base-200">
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      className="text-blue-600 p-3 hover:shadow-sm shadow-md hover:bg-base-200"
+                    >
                       <FaX />
                     </button>
                   </td>
