@@ -28,14 +28,21 @@ async function run() {
     const userCollection = client.db("userManagement").collection("users");
 
     app.get("/users", async (req, res) => {
-      const cursor = userCollection.find();
+      // search
+      const {searchParams}=req.query;
+      let option = {};
+      if (searchParams) {
+        option = {name:{$regex:searchParams, $options: 'i'}}
+      }
+      // search end
+
+      const cursor = userCollection.find(option);
       const result = await cursor.toArray();
       res.send(result);
     });
 
     app.post("/users", async (req, res) => {
       const newUser = req.body;
-      console.log(newUser);
       const result = await userCollection.insertOne(newUser);
       res.send(result);
     });

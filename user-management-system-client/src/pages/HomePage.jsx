@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPen, FaUser, FaX } from "react-icons/fa6";
 import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 const HomePage = () => {
   const loadedUser = useLoaderData();
   const [users, setUsers] = useState(loadedUser);
+  const [search, setSearch] = useState("");
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -40,9 +41,27 @@ const HomePage = () => {
     });
   };
 
+  useEffect(()=>{
+    fetch(`http://localhost:5000/users?searchParams=${search}`)
+    .then(res=>res.json())
+    .then(data=>{
+      setUsers(data)
+    })
+  },[search])
+
   return (
     <div className="max-w-7xl px-2 mx-auto">
-      <div className="mt-16">
+      <div className="w-[400px] mx-auto mb-4 mt-12">
+        <input
+          onChange={(e) => setSearch(e.target.value)}
+          type="text"
+          name="search"
+          placeholder="search"
+          className="input input-bordered w-full"
+          required
+        />
+      </div>
+      <div>
         <div>
           <Link
             to={"/users"}
